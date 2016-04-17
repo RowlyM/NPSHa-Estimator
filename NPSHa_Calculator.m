@@ -112,32 +112,17 @@ function popupmenu1_Callback(hObject, eventdata, handles)
            for j = 1:b
                handles.Fluid_vec(j) = sum(handles.pop_count(:,j));
            end
+           
            handles.comp_name{n} =  Compound;
            handles.mol_frac = mol_frac_calc(handles,n);
 
-           handles.Vapour_Pressure = anton_calc(handles.Fluid_prop,handles.Fluid_temp);
+           handles.Vapour_Pressure = anton_calc(handles);
            handles.Real_mol_frac = handles.Fluid_vec.*handles.mol_frac;
-           Total_pressure = dot(handles.Vapour_Pressure,handles.Real_mol_frac );
-           pressure = sprintf('%g kPa', Total_pressure);
-           set(handles.text15, 'string', pressure);
+           handles.Total_V_pressure = dot(handles.Vapour_Pressure,handles.Real_mol_frac );
+           handles.Total_fluid_density = dot(handles.Fluid_density,handles.Real_mol_frac);
+           handles.Ha = NPSHa_calc(handles);
            
-           Total_fluid_density = dot(handles.Fluid_density,handles.Real_mol_frac);
-           density = sprintf('%g kg/m3',Total_fluid_density);
-           set(handles.text14, 'string', density);
-           
-           handles.Ha = NPSHa_calc(handles.Atm_pres,handles.Liq_height,Total_fluid_density,handles.losses,Total_pressure);
-           NPSHa= sprintf('%g m',handles.Ha);
-           set(handles.NPSHa, 'string',NPSHa);
-           
-           Elevation = sprintf('%g m',handles.Liq_height);
-           set(handles.Elevation, 'string',Elevation);
-           
-           temp = sprintf('%g C',handles.Fluid_temp);
-           set(handles.Dia_temp, 'string',temp);
-           
-           atm_P = sprintf('%g kPa',handles.Atm_pres);
-           set(handles.Atm_P, 'string',atm_P);
-           
+           displayer(hObject,handles)
            guidata(hObject, handles);
        end
    end
@@ -195,22 +180,17 @@ function popupmenu2_Callback(hObject, eventdata, handles)
            for j = 1:b
                handles.Fluid_vec(j) = sum(handles.pop_count(:,j));
            end
+           
            handles.comp_name{n} =  Compound;
            handles.mol_frac = mol_frac_calc(handles,n);
 
-           handles.Vapour_Pressure = anton_calc(handles.Fluid_prop,handles.Fluid_temp);
+           handles.Vapour_Pressure = anton_calc(handles);
            handles.Real_mol_frac = handles.Fluid_vec.*handles.mol_frac;
-           Total_pressure = dot(handles.Vapour_Pressure,handles.Real_mol_frac );
-           textLabel = sprintf('%g', Total_pressure);
-           set(handles.text15, 'string', textLabel);
+           handles.Total_V_pressure = dot(handles.Vapour_Pressure,handles.Real_mol_frac );
+           handles.Total_fluid_density = dot(handles.Fluid_density,handles.Real_mol_frac);
+           handles.Ha = NPSHa_calc(handles);
            
-       
-           Total_fluid_density = dot(handles.Fluid_density,handles.Real_mol_frac);
-           textLabel = sprintf('%g',Total_fluid_density);
-           set(handles.text14, 'string', textLabel);
-           
-           handles.Ha = NPSHa_calc(handles.Atm_pres,handles.Liq_height,Total_fluid_density,handles.losses,Total_pressure);
-
+           displayer(hObject,handles)
            guidata(hObject, handles);
        end
    end
@@ -260,22 +240,17 @@ function popupmenu3_Callback(hObject, eventdata, handles)
            for j = 1:b
                handles.Fluid_vec(j) = sum(handles.pop_count(:,j));
            end
+
            handles.comp_name{n} =  Compound;
            handles.mol_frac = mol_frac_calc(handles,n);
 
-           handles.Vapour_Pressure = anton_calc(handles.Fluid_prop,handles.Fluid_temp);
+           handles.Vapour_Pressure = anton_calc(handles);
            handles.Real_mol_frac = handles.Fluid_vec.*handles.mol_frac;
-           Total_pressure = dot(handles.Vapour_Pressure,handles.Real_mol_frac );
-           textLabel = sprintf('%g', Total_pressure);
-           set(handles.text15, 'string', textLabel);
+           handles.Total_V_pressure = dot(handles.Vapour_Pressure,handles.Real_mol_frac );
+           handles.Total_fluid_density = dot(handles.Fluid_density,handles.Real_mol_frac);
+           handles.Ha = NPSHa_calc(handles);
            
-       
-           Total_fluid_density = dot(handles.Fluid_density,handles.Real_mol_frac);
-           textLabel = sprintf('%g',Total_fluid_density);
-           set(handles.text14, 'string', textLabel);
-           
-           handles.Ha = NPSHa_calc(handles.Atm_pres,handles.Liq_height,Total_fluid_density,handles.losses,Total_pressure);
-
+           displayer(hObject,handles)
            guidata(hObject, handles);
        end
    end
@@ -327,19 +302,13 @@ function popupmenu4_Callback(hObject, eventdata, handles)
            handles.comp_name{n} =  Compound;
            handles.mol_frac = mol_frac_calc(handles,n);
 
-           handles.Vapour_Pressure = anton_calc(handles.Fluid_prop,handles.Fluid_temp);
+           handles.Vapour_Pressure = anton_calc(handles);
            handles.Real_mol_frac = handles.Fluid_vec.*handles.mol_frac;
-           Total_pressure = dot(handles.Vapour_Pressure,handles.Real_mol_frac );
-           textLabel = sprintf('%g', Total_pressure);
-           set(handles.text15, 'string', textLabel);
+           handles.Total_V_pressure = dot(handles.Vapour_Pressure,handles.Real_mol_frac );
+           handles.Total_fluid_density = dot(handles.Fluid_density,handles.Real_mol_frac);
+           handles.Ha = NPSHa_calc(handles);
            
-       
-           Total_fluid_density = dot(handles.Fluid_density,handles.Real_mol_frac);
-           textLabel = sprintf('%g',Total_fluid_density);
-           set(handles.text14, 'string', textLabel);
-           
-           handles.Ha = NPSHa_calc(handles.Atm_pres,handles.Liq_height,Total_fluid_density,handles.losses,Total_pressure);
-
+           displayer(hObject,handles)
            guidata(hObject, handles);
        end
    end
@@ -391,19 +360,13 @@ function popupmenu5_Callback(hObject, eventdata, handles)
            handles.comp_name{n} =  Compound;
            handles.mol_frac = mol_frac_calc(handles,n);
 
-           handles.Vapour_Pressure = anton_calc(handles.Fluid_prop,handles.Fluid_temp);
+           handles.Vapour_Pressure = anton_calc(handles);
            handles.Real_mol_frac = handles.Fluid_vec.*handles.mol_frac;
-           Total_pressure = dot(handles.Vapour_Pressure,handles.Real_mol_frac );
-           textLabel = sprintf('%g', Total_pressure);
-           set(handles.text15, 'string', textLabel);
+           handles.Total_V_pressure = dot(handles.Vapour_Pressure,handles.Real_mol_frac );
+           handles.Total_fluid_density = dot(handles.Fluid_density,handles.Real_mol_frac);
+           handles.Ha = NPSHa_calc(handles);
            
-       
-           Total_fluid_density = dot(handles.Fluid_density,handles.Real_mol_frac);
-           textLabel = sprintf('%g',Total_fluid_density);
-           set(handles.text14, 'string', textLabel);
-           
-           handles.Ha = NPSHa_calc(handles.Atm_pres,handles.Liq_height,Total_fluid_density,handles.losses,Total_pressure);
-
+           displayer(hObject,handles)
            guidata(hObject, handles);
        end
    end
@@ -455,19 +418,13 @@ function popupmenu6_Callback(hObject, eventdata, handles)
            handles.comp_name{n} =  Compound;
            handles.mol_frac = mol_frac_calc(handles,n);
 
-           handles.Vapour_Pressure = anton_calc(handles.Fluid_prop,handles.Fluid_temp);
+           handles.Vapour_Pressure = anton_calc(handles);
            handles.Real_mol_frac = handles.Fluid_vec.*handles.mol_frac;
-           Total_pressure = dot(handles.Vapour_Pressure,handles.Real_mol_frac );
-           textLabel = sprintf('%g', Total_pressure);
-           set(handles.text15, 'string', textLabel);
+           handles.Total_V_pressure = dot(handles.Vapour_Pressure,handles.Real_mol_frac );
+           handles.Total_fluid_density = dot(handles.Fluid_density,handles.Real_mol_frac);
+           handles.Ha = NPSHa_calc(handles);
            
-       
-           Total_fluid_density = dot(handles.Fluid_density,handles.Real_mol_frac);
-           textLabel = sprintf('%g',Total_fluid_density);
-           set(handles.text14, 'string', textLabel);
-           
-           handles.Ha = NPSHa_calc(handles.Atm_pres,handles.Liq_height,Total_fluid_density,handles.losses,Total_pressure);
-
+           displayer(hObject,handles)
            guidata(hObject, handles);
        end
    end
@@ -519,19 +476,13 @@ function popupmenu7_Callback(hObject, eventdata, handles)
            handles.comp_name{n} =  Compound;
            handles.mol_frac = mol_frac_calc(handles,n);
 
-           handles.Vapour_Pressure = anton_calc(handles.Fluid_prop,handles.Fluid_temp);
+           handles.Vapour_Pressure = anton_calc(handles);
            handles.Real_mol_frac = handles.Fluid_vec.*handles.mol_frac;
-           Total_pressure = dot(handles.Vapour_Pressure,handles.Real_mol_frac );
-           textLabel = sprintf('%g', Total_pressure);
-           set(handles.text15, 'string', textLabel);
+           handles.Total_V_pressure = dot(handles.Vapour_Pressure,handles.Real_mol_frac );
+           handles.Total_fluid_density = dot(handles.Fluid_density,handles.Real_mol_frac);
+           handles.Ha = NPSHa_calc(handles);
            
-       
-           Total_fluid_density = dot(handles.Fluid_density,handles.Real_mol_frac);
-           textLabel = sprintf('%g',Total_fluid_density);
-           set(handles.text14, 'string', textLabel);
-           
-           handles.Ha = NPSHa_calc(handles.Atm_pres,handles.Liq_height,Total_fluid_density,handles.losses,Total_pressure);
-
+           displayer(hObject,handles)
            guidata(hObject, handles);
        end
    end
@@ -583,19 +534,13 @@ function popupmenu8_Callback(hObject, eventdata, handles)
            handles.comp_name{n} =  Compound;
            handles.mol_frac = mol_frac_calc(handles,n);
 
-           handles.Vapour_Pressure = anton_calc(handles.Fluid_prop,handles.Fluid_temp);
+           handles.Vapour_Pressure = anton_calc(handles);
            handles.Real_mol_frac = handles.Fluid_vec.*handles.mol_frac;
-           Total_pressure = dot(handles.Vapour_Pressure,handles.Real_mol_frac );
-           textLabel = sprintf('%g', Total_pressure);
-           set(handles.text15, 'string', textLabel);
+           handles.Total_V_pressure = dot(handles.Vapour_Pressure,handles.Real_mol_frac );
+           handles.Total_fluid_density = dot(handles.Fluid_density,handles.Real_mol_frac);
+           handles.Ha = NPSHa_calc(handles);
            
-       
-           Total_fluid_density = dot(handles.Fluid_density,handles.Real_mol_frac);
-           textLabel = sprintf('%g',Total_fluid_density);
-           set(handles.text14, 'string', textLabel);
-           
-           handles.Ha = NPSHa_calc(handles.Atm_pres,handles.Liq_height,Total_fluid_density,handles.losses,Total_pressure);
-
+           displayer(hObject,handles)
            guidata(hObject, handles);
        end
    end
@@ -627,16 +572,18 @@ function edit1_Callback(hObject, eventdata, handles)
 
     handles.Fluid_temp = str2double(get(hObject,'String'));
     
-    handles.Vapour_Pressure = anton_calc(handles.Fluid_prop,handles.Fluid_temp);
+
+
+     handles.Vapour_Pressure = anton_calc(handles);
+     handles.Total_V_pressure = dot(handles.Vapour_Pressure,handles.Real_mol_frac );
+     handles.Ha = NPSHa_calc(handles);
+           
+     displayer(hObject,handles)
     
-    
-    Total_pressure = dot(handles.Vapour_Pressure,handles.Real_mol_frac);
-    textLabel = sprintf('%g', Total_pressure);
-    
-    if handles.running == 1
-        
-        set(handles.text15, 'string', textLabel);
-    end
+%     if handles.running == 1
+%         
+%         set(handles.text15, 'string', textLabel);
+%     end
     guidata(hObject, handles);
     
     
@@ -663,8 +610,11 @@ function edit2_Callback(hObject, eventdata, handles)
 
 % Hints: get(hObject,'String') returns contents of edit2 as text
 %        str2double(get(hObject,'String')) returns contents of edit2 as a double
-    Atm_pres =  str2double(get(hObject,'String'));
-    handles.Atm_pres = Atm_pres;
+    handles.Atm_pres = str2double(get(hObject,'String'));
+    
+    handles.Ha = NPSHa_calc(handles);
+    
+    displayer(hObject,handles)
     guidata(hObject, handles);
 %  
 
@@ -691,8 +641,12 @@ function edit3_Callback(hObject, eventdata, handles)
 
 % Hints: get(hObject,'String') returns contents of edit3 as text
 %        str2double(get(hObject,'String')) returns contents of edit3 as a double
-    Liq_height =  str2double(get(hObject,'String'));
-    handles.Liq_height = Liq_height;
+    handles.Liq_height = str2double(get(hObject,'String'));
+
+    handles.Ha = NPSHa_calc(handles);
+
+           
+    displayer(hObject,handles)
     guidata(hObject, handles);
 
 % --- Executes during object creation, after setting all properties.
@@ -717,8 +671,12 @@ function edit4_Callback(hObject, eventdata, handles)
 
 % Hints: get(hObject,'String') returns contents of edit4 as text
 %        str2double(get(hObject,'String')) returns contents of edit4 as a double
-    pipe_length =  str2double(get(hObject,'String'));
-    handles.pipe_length = pipe_length;
+    handles.presdrop = str2double(get(hObject,'String'));
+
+    handles.Ha = NPSHa_calc(handles);
+
+           
+    displayer(hObject,handles)
     guidata(hObject, handles);
     
 % --- Executes during object creation, after setting all properties.
@@ -735,62 +693,63 @@ if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgr
 end
 
 
-% --- Executes on selection change in popupmenu9.
-function popupmenu9_Callback(hObject, eventdata, handles)
-% hObject    handle to popupmenu9 (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    structure with handles and user data (see GUIDATA)
+function H = NPSHa_calc(handles)
 
-% Hints: contents = cellstr(get(hObject,'String')) returns popupmenu9 contents as cell array
-%        contents{get(hObject,'Value')} returns selected item from popupmenu9
-
-
-% --- Executes during object creation, after setting all properties.
-function popupmenu9_CreateFcn(hObject, ~, handles)
-% hObject    handle to popupmenu9 (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    empty - handles not created until after all CreateFcns called
-
-% Hint: popupmenu controls usually have a white background on Windows.
-%       See ISPC and COMPUTER.
-if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
-    set(hObject,'BackgroundColor','white');
-end
-
-
-
-function edit5_Callback(hObject, eventdata, handles)
-% hObject    handle to edit5 (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    structure with handles and user data (see GUIDATA)
-
-% Hints: get(hObject,'String') returns contents of edit5 as text
-%        str2double(get(hObject,'String')) returns contents of edit5 as a double
-    roughness =  str2double(get(hObject,'String'));
-    handles.roughness = roughness;
-    guidata(hObject, handles);
-
-% --- Executes during object creation, after setting all properties.
-function edit5_CreateFcn(hObject, eventdata, handles)
-% hObject    handle to edit5 (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    empty - handles not created until after all CreateFcns called
-
-% Hint: edit controls usually have a white background on Windows.
-%       See ISPC and COMPUTER.
-
-if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
-    set(hObject,'BackgroundColor','white');
-end
-
-
-
-function pres = anton_calc(ant_const,temp)
+   System_P = handles.Sys_pres + handles.Atm_pres;
+   sys_head = System_P/handles.Total_fluid_density/9.8*1000;
+   loss_head = handles.presdrop/handles.Total_fluid_density/9.8*1000;
+   Vapour_head = handles.Total_V_pressure/handles.Total_fluid_density/9.8*1000;
+   H = sys_head + handles.Liq_height - loss_head - Vapour_head;
+   
+function fracs = mol_frac_calc(handles,n)
         
-    [a,b] =size(ant_const);
+    [a,b] = size(handles.Fluid_names);
+     
+   for i = 1:b
+       if strcmp(handles.comp_name(n),handles.Fluid_names(1,i)) == 1
+           handles.mol_frac(i) = handles.saved_mole_frac(1,n);
+           fracs = handles.mol_frac;
+       end
+   end
+
+function displayer(hObject,handles)
+
+           %Total Vapour Pressure 
+           pressure = sprintf('%g kPa', handles.Total_V_pressure);
+           set(handles.text15, 'string', pressure);
+           
+           % Total fluid Density
+           density = sprintf('%g kg/m3',handles.Total_fluid_density);
+           set(handles.text14, 'string', density);
+           
+           % NPSHa
+           NPSHa = sprintf('%g m',handles.Ha);
+           set(handles.NPSHa, 'string',NPSHa);
+           
+           %Elevation
+           Elevation = sprintf('%g m',handles.Liq_height);
+           set(handles.Elevation, 'string',Elevation);
+           
+           %Fluid temperature
+           temp = sprintf('%g C',handles.Fluid_temp);
+           set(handles.Dia_temp, 'string',temp);
+           
+           % Atm pressure
+           atm_P = sprintf('%g kPa',handles.Atm_pres);
+           set(handles.Atm_P, 'string',atm_P);
+           
+           % System pressure
+           Sys_P = sprintf('%g kPag',handles.Sys_pres);
+           set(handles.Sys_pressure, 'string',Sys_P);
+           
+           guidata(hObject, handles)
+           
+function pres = anton_calc(handles)
+        
+    [a,b] =size(handles.Fluid_prop);
      pres = zeros(1,b);   
     for i = 1: b
-        pres(i) = exp(ant_const(1,i)-(ant_const(2,i)/(temp+ant_const(3,i))));
+        pres(i) = exp(handles.Fluid_prop(1,i)-(handles.Fluid_prop(2,i)/(handles.Fluid_temp + handles.Fluid_prop(3,i))));
     end
     
     
@@ -824,20 +783,13 @@ function edit6_Callback(hObject, eventdata, handles)
        end
 
    end
-
-   handles.Vapour_Pressure = anton_calc(handles.Fluid_prop,handles.Fluid_temp);
-   handles.Real_mol_frac = handles.Fluid_vec.*handles.mol_frac;
-
-   Total_pressure = dot(handles.Vapour_Pressure,handles.Real_mol_frac );
-   textLabel = sprintf('%g', Total_pressure);
-
-   Total_fluid_density = dot(handles.Fluid_density,handles.Real_mol_frac);
-   textLabel2 = sprintf('%g',Total_fluid_density);
    
-    if handles.running == 1
-        set(handles.text15, 'string', textLabel);
-        set(handles.text14, 'string', textLabel2);
-    end
+   handles.Real_mol_frac = handles.Fluid_vec.*handles.mol_frac;
+   handles.Total_V_pressure = dot(handles.Vapour_Pressure,handles.Real_mol_frac );
+   handles.Total_fluid_density = dot(handles.Fluid_density,handles.Real_mol_frac);
+   handles.Ha = NPSHa_calc(handles);
+
+   displayer(hObject,handles)
    guidata(hObject, handles)
   
     
@@ -887,19 +839,12 @@ function edit7_Callback(hObject, eventdata, handles)
 
    end
 
-   handles.Vapour_Pressure = anton_calc(handles.Fluid_prop,handles.Fluid_temp);
    handles.Real_mol_frac = handles.Fluid_vec.*handles.mol_frac;
+   handles.Total_V_pressure = dot(handles.Vapour_Pressure,handles.Real_mol_frac );
+   handles.Total_fluid_density = dot(handles.Fluid_density,handles.Real_mol_frac);
+   handles.Ha = NPSHa_calc(handles);
 
-   Total_pressure = dot(handles.Vapour_Pressure,handles.Real_mol_frac );
-   textLabel = sprintf('%g', Total_pressure);
-
-   Total_fluid_density = dot(handles.Fluid_density,handles.Real_mol_frac);
-   textLabel2 = sprintf('%g',Total_fluid_density);
-   
-    if handles.running == 1
-        set(handles.text15, 'string', textLabel);
-        set(handles.text14, 'string', textLabel2);
-    end
+   displayer(hObject,handles)
    guidata(hObject, handles)
   
 
@@ -948,19 +893,12 @@ function edit8_Callback(hObject, eventdata, handles)
 
    end
 
-   handles.Vapour_Pressure = anton_calc(handles.Fluid_prop,handles.Fluid_temp);
    handles.Real_mol_frac = handles.Fluid_vec.*handles.mol_frac;
+   handles.Total_V_pressure = dot(handles.Vapour_Pressure,handles.Real_mol_frac );
+   handles.Total_fluid_density = dot(handles.Fluid_density,handles.Real_mol_frac);
+   handles.Ha = NPSHa_calc(handles);
 
-   Total_pressure = dot(handles.Vapour_Pressure,handles.Real_mol_frac );
-   textLabel = sprintf('%g', Total_pressure);
-
-   Total_fluid_density = dot(handles.Fluid_density,handles.Real_mol_frac);
-   textLabel2 = sprintf('%g',Total_fluid_density);
-   
-    if handles.running == 1
-        set(handles.text15, 'string', textLabel);
-        set(handles.text14, 'string', textLabel2);
-    end
+   displayer(hObject,handles)
    guidata(hObject, handles)
   
 
@@ -1009,19 +947,12 @@ function edit9_Callback(hObject, eventdata, handles)
 
    end
 
-   handles.Vapour_Pressure = anton_calc(handles.Fluid_prop,handles.Fluid_temp);
    handles.Real_mol_frac = handles.Fluid_vec.*handles.mol_frac;
+   handles.Total_V_pressure = dot(handles.Vapour_Pressure,handles.Real_mol_frac );
+   handles.Total_fluid_density = dot(handles.Fluid_density,handles.Real_mol_frac);
+   handles.Ha = NPSHa_calc(handles);
 
-   Total_pressure = dot(handles.Vapour_Pressure,handles.Real_mol_frac );
-   textLabel = sprintf('%g', Total_pressure);
-
-   Total_fluid_density = dot(handles.Fluid_density,handles.Real_mol_frac);
-   textLabel2 = sprintf('%g',Total_fluid_density);
-   
-    if handles.running == 1
-        set(handles.text15, 'string', textLabel);
-        set(handles.text14, 'string', textLabel2);
-    end
+   displayer(hObject,handles)
    guidata(hObject, handles)
   
 
@@ -1069,19 +1000,12 @@ function edit10_Callback(hObject, eventdata, handles)
 
    end
 
-   handles.Vapour_Pressure = anton_calc(handles.Fluid_prop,handles.Fluid_temp);
    handles.Real_mol_frac = handles.Fluid_vec.*handles.mol_frac;
+   handles.Total_V_pressure = dot(handles.Vapour_Pressure,handles.Real_mol_frac );
+   handles.Total_fluid_density = dot(handles.Fluid_density,handles.Real_mol_frac);
+   handles.Ha = NPSHa_calc(handles);
 
-   Total_pressure = dot(handles.Vapour_Pressure,handles.Real_mol_frac );
-   textLabel = sprintf('%g', Total_pressure);
-
-   Total_fluid_density = dot(handles.Fluid_density,handles.Real_mol_frac);
-   textLabel2 = sprintf('%g',Total_fluid_density);
-   
-    if handles.running == 1
-        set(handles.text15, 'string', textLabel);
-        set(handles.text14, 'string', textLabel2);
-    end
+   displayer(hObject,handles)
    guidata(hObject, handles)
   
 
@@ -1130,19 +1054,12 @@ function edit11_Callback(hObject, eventdata, handles)
 
    end
 
-   handles.Vapour_Pressure = anton_calc(handles.Fluid_prop,handles.Fluid_temp);
    handles.Real_mol_frac = handles.Fluid_vec.*handles.mol_frac;
+   handles.Total_V_pressure = dot(handles.Vapour_Pressure,handles.Real_mol_frac );
+   handles.Total_fluid_density = dot(handles.Fluid_density,handles.Real_mol_frac);
+   handles.Ha = NPSHa_calc(handles);
 
-   Total_pressure = dot(handles.Vapour_Pressure,handles.Real_mol_frac );
-   textLabel = sprintf('%g', Total_pressure);
-
-   Total_fluid_density = dot(handles.Fluid_density,handles.Real_mol_frac);
-   textLabel2 = sprintf('%g',Total_fluid_density);
-   
-    if handles.running == 1
-        set(handles.text15, 'string', textLabel);
-        set(handles.text14, 'string', textLabel2);
-    end
+   displayer(hObject,handles)
    guidata(hObject, handles)
   
 
@@ -1191,19 +1108,12 @@ function edit12_Callback(hObject, eventdata, handles)
 
    end
 
-   handles.Vapour_Pressure = anton_calc(handles.Fluid_prop,handles.Fluid_temp);
    handles.Real_mol_frac = handles.Fluid_vec.*handles.mol_frac;
+   handles.Total_V_pressure = dot(handles.Vapour_Pressure,handles.Real_mol_frac );
+   handles.Total_fluid_density = dot(handles.Fluid_density,handles.Real_mol_frac);
+   handles.Ha = NPSHa_calc(handles);
 
-   Total_pressure = dot(handles.Vapour_Pressure,handles.Real_mol_frac );
-   textLabel = sprintf('%g', Total_pressure);
-
-   Total_fluid_density = dot(handles.Fluid_density,handles.Real_mol_frac);
-   textLabel2 = sprintf('%g',Total_fluid_density);
-   
-    if handles.running == 1
-        set(handles.text15, 'string', textLabel);
-        set(handles.text14, 'string', textLabel2);
-    end
+   displayer(hObject,handles)
    guidata(hObject, handles)
   
 
@@ -1252,24 +1162,15 @@ function edit13_Callback(hObject, eventdata, handles)
 
    end
 
-   handles.Vapour_Pressure = anton_calc(handles.Fluid_prop,handles.Fluid_temp);
    handles.Real_mol_frac = handles.Fluid_vec.*handles.mol_frac;
+   handles.Total_V_pressure = dot(handles.Vapour_Pressure,handles.Real_mol_frac );
+   handles.Total_fluid_density = dot(handles.Fluid_density,handles.Real_mol_frac);
+   handles.Ha = NPSHa_calc(handles);
 
-   Total_pressure = dot(handles.Vapour_Pressure,handles.Real_mol_frac );
-   textLabel = sprintf('%g', Total_pressure);
-
-   Total_fluid_density = dot(handles.Fluid_density,handles.Real_mol_frac);
-   textLabel2 = sprintf('%g',Total_fluid_density);
-   
-    if handles.running == 1
-        set(handles.text15, 'string', textLabel);
-        set(handles.text14, 'string', textLabel2);
-    end
+   displayer(hObject,handles)
    guidata(hObject, handles)
   
 % --- Executes during object creation, after setting all properties.
-
-    
 
 function edit13_CreateFcn(hObject, eventdata, handles)
 % hObject    handle to edit13 (see GCBO)
@@ -1295,41 +1196,20 @@ handles.Fluid_vec = zeros(1,b);
 handles.Fluid_names = raw(1,:);
 handles.Fluid_prop = data;
 handles.comp_name = cell(1,8);
-% handles.comp_name{1} = 'Water';
 handles.Real_mol_frac = zeros(1,b);
-handles.losses = 20;
+handles.presdrop = 20;
+handles.Sys_pres = 0;
 handles.Fluid_density = data(4,:);
 guidata(hObject, handles);
-
+handles.Total_pressure = 0;
+handles.Total_fluid_density = 0;
+handles.Total_V_pressure = 0;
+guidata(hObject, handles)
 if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
     set(hObject,'BackgroundColor','white');
 end
 
-function H = NPSHa_calc(System_P, Static_Head,fluid_density,losses,Total_pressure)
 
-   sys_head = System_P/fluid_density/9.8;
-   loss_head = losses/fluid_density/9.8;
-   Vapour_head = Total_pressure/fluid_density/9.8;
-   H = sys_head + Static_Head - loss_head - Vapour_head;
-   
- function fracs = mol_frac_calc(handles,n)
-        
-    [a,b] = size(handles.Fluid_names);
-     
-   for i = 1:b
-       if strcmp(handles.comp_name(n),handles.Fluid_names(1,i)) == 1
-           handles.mol_frac(i) = handles.saved_mole_frac(1,n);
-           fracs = handles.mol_frac;
-       end
-   end
- 
-
-
-% --- Executes during object creation, after setting all properties.
-
-
-
-% --- Executes on button press in togglebutton1.
 function togglebutton1_Callback(hObject, eventdata, handles)
 % hObject    handle to togglebutton1 (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
@@ -1343,7 +1223,58 @@ function pushbutton1_Callback(hObject, eventdata, handles)
 % hObject    handle to pushbutton1 (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
+    set(handles.popupmenu1,'Value',1)
+    set(handles.popupmenu2,'Value',1)
+    set(handles.popupmenu3,'Value',1)
+    set(handles.popupmenu4,'Value',1)
+    set(handles.popupmenu5,'Value',1)
+    set(handles.popupmenu6,'Value',1)
+    set(handles.popupmenu7,'Value',1)
+    set(handles.popupmenu8,'Value',1)
+    
+    set(handles.edit6,'String','0');
+    set(handles.edit7,'String','0');
+    set(handles.edit8,'String','0');
+    set(handles.edit9,'String','0');
+    set(handles.edit10,'String','0');
+    set(handles.edit11,'String','0');
+    set(handles.edit12,'String','0');
+    set(handles.edit13,'String','0');
+    
+    set(handles.edit1,'String','25');
+    set(handles.edit2,'String','86');
+    set(handles.edit3,'String','0');
+    set(handles.edit4,'String','0');
+    set(handles.edit14,'String','0');
+    
 
+    [data,ext,raw] = xlsread('Data.xlsx','Sheet1','C2:AR7');
+    [a,b] =size(raw);
+    handles.running = 0; 
+    handles.saved_mole_frac = zeros(1,8);
+    handles.Ha = 0;
+    handles.pop_count = zeros(8,b);
+    handles.mol_mat = zeros(8,b);
+    handles.Atm_pres = 86;
+    handles.Liq_height = 0;
+    handles.Fluid_temp = 25;
+    handles.mol_frac = zeros(1,b);
+    handles.Fluid_vec = zeros(1,b);
+    handles.Fluid_names = raw(1,:);
+    handles.Fluid_prop = data;
+    handles.comp_name = cell(1,8);
+    handles.Real_mol_frac = zeros(1,b);
+    handles.presdrop = 0;
+    handles.Sys_pres = 0;
+    handles.Fluid_density = data(4,:);
+    guidata(hObject, handles);
+    handles.Total_pressure = 0;
+    handles.Total_fluid_density = 0;
+    handles.Total_V_pressure = 0;
+    
+    displayer(hObject,handles)
+    guidata(hObject, handles)
+   
 
 function axes3_CreateFcn(hObject, eventdata, handles)
 % hObject    handle to axes3 (see GCBO)
@@ -1361,7 +1292,13 @@ function edit14_Callback(hObject, eventdata, handles)
 
 % Hints: get(hObject,'String') returns contents of edit14 as text
 %        str2double(get(hObject,'String')) returns contents of edit14 as a double
+   
+    handles.Sys_pres = str2double(get(hObject,'String'));
 
+    handles.Ha = NPSHa_calc(handles);
+
+    displayer(hObject,handles)
+    guidata(hObject, handles);
 
 % --- Executes during object creation, after setting all properties.
 function edit14_CreateFcn(hObject, eventdata, handles)
@@ -1374,3 +1311,7 @@ function edit14_CreateFcn(hObject, eventdata, handles)
 if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
     set(hObject,'BackgroundColor','white');
 end
+
+        
+        
+        
